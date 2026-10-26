@@ -1,0 +1,256 @@
+{% extends "base.html" %}
+
+{% block title %}Sweet Haven | Authentic Kerala Sweets{% endblock %}
+
+{% block content %}
+
+<section class="hero" id="home">
+    <div class="hero-overlay"></div>
+  
+>
+
+    <div class="hero-content reveal">
+        <span class="eyebrow">AUTHENTIC KERALA SWEETS</span>
+
+        <h1>Taste the <span>Tradition</span></h1>
+
+        <p>
+            From the heart of Kerala, we bring you handcrafted
+            sweets made with pure ingredients and timeless recipes.
+        </p>
+
+        <div class="hero-actions">
+            <a href="#featured" class="gold-button">
+                Shop Now <span>→</span>
+            </a>
+            <span class="hero-note">Pure Kerala Goodness ♡</span>
+        </div>
+
+        <div class="hero-rating">
+            <span class="rating-stars">★★★★★</span>
+            <span>Traditional taste, made with love</span>
+        </div>
+    </div>
+
+    <div class="hero-badge">
+        <span class="badge-symbol">✳</span>
+        <strong>Made with</strong>
+        <strong>Tradition</strong>
+        <small>Since generations</small>
+    </div>
+
+    <div class="hero-bottom-label">A LITTLE TASTE OF KERALA</div>
+</section>
+<div class="kerala-heritage" aria-label="Kerala backwater heritage">
+    <svg viewBox="0 0 320 120" role="img"
+         aria-label="Decorative Kerala houseboat on the backwaters">
+        <g fill="none" stroke="#986c2b"
+           stroke-width="2" stroke-linecap="round"
+           stroke-linejoin="round">
+            <path d="M15 88 Q80 99 150 88 T305 88"/>
+            <path d="M45 75 L260 75 L230 99 L80 99 Z"/>
+            <path d="M95 74 Q145 35 205 74"/>
+            <path d="M120 72 L120 55 L145 55 L145 72"/>
+            <path d="M155 72 L155 50 L183 50 L183 72"/>
+            <path d="M112 51 Q153 20 195 51"/>
+            <path d="M103 46 Q153 12 204 46"/>
+            <path d="M80 83 L230 83"/>
+            <path d="M30 109 Q55 103 80 109 T130 109 T180 109 T230 109 T280 109"/>
+        </g>
+        <g fill="#c49a52">
+            <circle cx="45" cy="24" r="2"/>
+            <circle cx="267" cy="38" r="2"/>
+            <circle cx="240" cy="20" r="1.5"/>
+        </g>
+    </svg>
+</div>
+
+<section class="benefits">
+    <article class="benefit reveal">
+        <span class="benefit-icon">❋</span>
+        <div>
+            <h3>Pure Ingredients</h3>
+            <p>Carefully selected ingredients</p>
+        </div>
+    </article>
+
+    <article class="benefit reveal">
+        <span class="benefit-icon">♨</span>
+        <div>
+            <h3>Traditional Recipes</h3>
+            <p>Authentic Kerala flavours</p>
+        </div>
+    </article>
+
+    <article class="benefit reveal">
+        <span class="benefit-icon">♧</span>
+        <div>
+            <h3>Freshly Prepared</h3>
+            <p>Made for special moments</p>
+        </div>
+    </article>
+
+    <article class="benefit reveal">
+        <span class="benefit-icon">♡</span>
+        <div>
+            <h3>Packed with Love</h3>
+            <p>Ready for gifting and sharing</p>
+        </div>
+    </article>
+</section>
+
+<section class="categories section-wrap" id="categories">
+    <div class="section-heading reveal">
+        <span class="eyebrow">EXPLORE OUR COLLECTION</span>
+        <h2>Something Sweet for <span>Everyone</span></h2>
+        <p>Discover the flavours that make Kerala special.</p>
+    </div>
+
+    <div class="category-list">
+        <button class="category-pill active" data-category="all">
+            All Sweets
+        </button>
+        <button class="category-pill" data-category="traditional">
+            Traditional
+        </button>
+        <button class="category-pill" data-category="payasam">
+            Payasam
+        </button>
+        <button class="category-pill" data-category="halwa">
+            Halwa & Cakes
+        </button>
+        <button class="category-pill" data-category="snacks">
+            Sweet Snacks
+        </button>
+    </div>
+</section>
+
+<section class="featured section-wrap" id="featured">
+    <div class="featured-heading reveal">
+        <div>
+            <span class="eyebrow">HANDPICKED FOR YOU</span>
+            <h2>Popular Kerala Sweets</h2>
+            <p>Our most-loved traditional treats, all in one place.</p>
+        </div>
+
+        <a href="#categories" class="text-link">Explore collection ↗</a>
+    </div>
+
+     <div class="product-grid" id="productGrid">
+
+    {% for product in products %}
+    
+<article class="product-card reveal"
+         data-id="{{ product.id }}"
+         data-category="{{ product.category | lower }}"
+         data-name="{{ product.name | lower }}">
+
+
+        <div class="product-image">
+            <img src="{{ product.image }}"
+                 alt="{{ product.name }}"
+                 loading="lazy">
+
+            <span class="product-tag">Kerala Special</span>
+
+            <button class="wishlist"
+                    type="button"
+                    aria-label="Add {{ product.name }} to favourites">
+                ♡
+            </button>
+
+            <span class="image-caption">Kerala Heritage</span>
+        </div>
+
+        <div class="product-info">
+            <span class="product-category">
+                {{ product.category | upper }}
+            </span>
+
+            <h3>{{ product.name }}</h3>
+
+            <p class="product-description">
+                {{ product.description }}
+            </p>
+
+            
+<div class="product-bottom">
+    <div>
+        <span class="price">
+            ₹{{ "%.2f"|format(product.price) }}
+            <small>/ pack</small>
+        </span>
+
+        <div class="stock-status">
+            {% if product.stock <= 0 or not product.is_available %}
+                <span class="text-danger">Out of Stock</span>
+            {% elif product.stock <= 5 %}
+                <span class="text-warning">Only {{ product.stock }} left</span>
+            {% else %}
+                <span class="text-success">In Stock</span>
+            {% endif %}
+        </div>
+    </div>
+
+    <button class="add-cart"
+            type="button"
+            data-id="{{ product.id }}"
+            data-name="{{ product.name }}"
+            data-price="{{ product.price }}"
+            data-stock="{{ product.stock }}"
+            {% if product.stock <= 0 or not product.is_available %}
+                disabled
+                aria-label="{{ product.name }} is out of stock"
+            {% endif %}>
+        {% if product.stock <= 0 or not product.is_available %}
+            Unavailable
+        {% else %}
+            Add <span>+</span>
+        {% endif %}
+    </button>
+</div>
+
+        </div>
+
+    </article>
+    {% endfor %}
+
+</div>
+
+    <p class="empty-message" id="emptyMessage" hidden>
+        No sweets found. Try another category or search.
+    </p>
+</section>
+
+<section class="story-section" id="story">
+    <div class="story-image reveal">
+        <img src="https://th-i.thgim.com/public/life-and-style/fashion/8wr1s2/article67368836.ece/alternates/LANDSCAPE_1200/7%20Kerala%20sweets%20items.jpg"
+             alt="Beautifully arranged traditional food"
+             loading="lazy">
+        <span class="story-stamp">ROOTED IN<br>TRADITION</span>
+    </div>
+
+    <div class="story-content reveal">
+        <span class="eyebrow">OUR LITTLE STORY</span>
+        <h2>Tradition in Every <span>Bite</span></h2>
+        <p>
+            Kerala's sweetest memories are made around shared meals,
+            festive gatherings, and recipes passed down through generations.
+        </p>
+        <p>
+            At Sweet Haven, our dream is to bring those treasured flavours
+            to your home with warmth, care, and a touch of elegance.
+        </p>
+        <a href="#featured" class="gold-button">Discover Our Sweets →</a>
+    </div>
+</section>
+
+<section class="closing-banner">
+    <span class="eyebrow">MADE FOR YOUR SPECIAL MOMENTS</span>
+    <h2>Every Celebration Deserves Something Sweet.</h2>
+    <a href="#featured" class="gold-button">Find Your Favourite Sweet →</a>
+</section>
+
+
+
+{% endblock %}

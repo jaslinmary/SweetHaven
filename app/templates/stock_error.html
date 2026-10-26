@@ -1,0 +1,89 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Insufficient Stock | SweetHaven>
+
+    <link rel="stylesheet" href="/static/css/style.css">
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #fff8f0;
+            color: #4b2020;
+        }
+
+        .stock-error-card {
+            max-width: 520px;
+            margin: 80px auto;
+            padding: 40px 25px;
+            text-align: center;
+            background: white;
+            border-radius: 18px;
+            box-shadow: 0 8px 30px rgba(70, 20, 20, 0.12);
+        }
+
+        .stock-error-icon {
+            font-size: 60px;
+            color: #c0392b;
+        }
+
+        h1 {
+            color: #741f2b;
+        }
+
+        .stock-message {
+            margin: 20px 0;
+            line-height: 1.7;
+        }
+
+        .home-button {
+            display: inline-block;
+            padding: 12px 24px;
+            background: #741f2b;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            margin: 10px 5px;
+        }
+
+        .home-button:hover {
+            background: #52141e;
+        }
+
+        .back-button {
+            background: #f2e4dc;
+            color: #741f2b;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="stock-error-card">
+        <div class="stock-error-icon">!</div>
+
+        <h1>Oops! Not Enough Stock</h1>
+
+        <p class="stock-message">
+            Sorry, we don't have enough stock for your selected sweets.
+            Please return to checkout, reduce the quantity, or choose
+            another sweet.
+        </p>
+
+        {% if message %}
+            <p>{{ message }}</p>
+        {% endif %}
+
+        <a href="/checkout" class="home-button back-button">
+            Back to Checkout
+        </a>
+
+        <a href="/" class="home-button">
+            Continue Shopping
+        </a>
+    </div>
+</body>
+</html>

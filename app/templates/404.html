@@ -1,0 +1,131 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>404 | SweetHaven</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            font-family: Arial, sans-serif;
+            background: #fff8ed;
+            color: #25382b;
+        }
+
+        .error-container {
+            width: 100%;
+            max-width: 600px;
+            text-align: center;
+            padding: 50px 25px;
+            background: #ffffff;
+            border: 1px solid  #f4d58a;
+            border-radius: 20px;
+            box-shadow: 0 15px 45px rgba(74, 21, 32, 0.10);
+        }
+
+        .logo {
+            color:#25382b;
+            font-size: 30px;
+            font-weight: bold;
+            margin-bottom: 30px;
+        }
+
+        .logo span {
+            color: #f4d58a;
+        }
+
+        .sweet-icon {
+            font-size: 65px;
+            margin-bottom: 10px;
+        }
+
+        .error-code {
+            font-size: clamp(75px, 18vw, 120px);
+            line-height: 1.1;
+            font-weight: 800;
+            color: #25382b;
+            text-shadow: 3px 3px 0  #f4d58a;
+        }
+
+        h1 {
+            font-size: 28px;
+            margin: 18px 0 12px;
+        }
+
+        p {
+            color: #74646a;
+            font-size: 16px;
+            line-height: 1.7;
+            margin-bottom: 28px;
+        }
+
+        .home-button {
+            display: inline-block;
+            text-decoration: none;
+            padding: 14px 28px;
+            background: #25382b;
+            color: #fff;
+            border: 2px solid #25382b;
+            border-radius: 8px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .home-button:hover {
+            background: #c49a45;
+            border-color: #c49a45;
+            color:#25382b;
+            transform: translateY(-3px);
+        }
+
+        .footer {
+            margin-top: 35px;
+            font-size: 12px;
+            color: #9b8588;
+        }
+    </style>
+</head>
+
+<body>
+    <main class="error-container">
+
+        <div class="logo">
+            Sweet<span>Haven</span>
+        </div>
+
+        <div class="sweet-icon">🍬</div>
+
+        <div class="error-code">404</div>
+
+        <h1>Oops! This Sweet Is Missing.</h1>
+
+        <p>
+            Looks like you've wandered into the wrong corner
+            of our sweet shop. The page you're looking for
+            may have moved or doesn't exist.
+        </p>
+
+        <a href="/" class="home-button">
+            ← Back to Home
+        </a>
+
+        <div class="footer">
+            © 2026 SweetHaven. Made with love and sweetness.
+        </div>
+
+    </main>
+</body>
+</html>

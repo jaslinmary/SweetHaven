@@ -1,0 +1,85 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Successful | SweetHaven</title>
+
+    <link rel="stylesheet"
+          href="/static/css/style.css">
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #fff8f0;
+            color: #4b2020;
+        }
+
+        .success-card {
+            max-width: 520px;
+            margin: 80px auto;
+            padding: 40px 25px;
+            text-align: center;
+            background: white;
+            border-radius: 18px;
+            box-shadow: 0 8px 30px rgba(70, 20, 20, 0.12);
+        }
+
+        .success-icon {
+            font-size: 60px;
+            color: #27834a;
+        }
+
+        h1 {
+            color: #741f2b;
+        }
+
+        .order-number {
+            font-weight: bold;
+            margin: 20px 0;
+        }
+
+        .home-button {
+            display: inline-block;
+            padding: 12px 24px;
+            background: #741f2b;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            margin-top: 15px;
+        }
+
+        .home-button:hover {
+            background: #52141e;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="success-card">
+        <div class="success-icon">✓</div>
+
+        <h1>Order Placed Successfully!</h1>
+
+        <p>Thank you for choosing SweetHaven.</p>
+        <p>Your sweet treats are being prepared with care.</p>
+
+        <p class="order-number">
+            Order ID: #{{ order.id }}
+        </p>
+
+        <p>
+            Total Amount: ₹{{ "%.2f"|format(order.total_amount) }}
+        </p>
+
+        <p>Payment Method: {{ order.payment_method }}</p>
+        <p>Order Status: {{ order.order_status }}</p>
+
+        <a href="/" class="home-button">
+            Continue Shopping
+        </a>
+    </div>
+</body>
+</html>

@@ -1,0 +1,245 @@
+
+{% extends "base.html" %}
+
+{% block title %}Checkout | Sweet Haven{% endblock %}
+
+{% block content %}
+
+<section class="checkout-page">
+
+    <!-- Page Heading -->
+    <div class="checkout-heading">
+        <span class="section-eyebrow">ALMOST SOMETHING SWEET</span>
+        <h1>Complete Your Order</h1>
+        <p>Share your delivery details and let us prepare your favourites.</p>
+    </div>
+
+    <div class="checkout-layout">
+
+        <!-- Customer Information -->
+         
+
+
+        <form
+            class="checkout-form"
+            id="checkoutForm"
+            action="/place-order"
+            method="post"
+        >
+            <input
+                type="hidden"
+                name="cart_items"
+                id="cartItemsInput"
+            >
+
+            <!-- Delivery Information -->
+            <div class="checkout-card">
+                <h2>01. Delivery Information</h2>
+
+                <p class="checkout-card-description">
+                    Where should we deliver your sweets?
+                </p>
+
+                <div class="checkout-field">
+                    <label for="customerName">Full Name *</label>
+                    <input
+                        type="text"
+                        id="customerName"
+                        name="customer_name"
+                        placeholder="Enter your full name"
+                        autocomplete="name"
+                        required
+                    >
+                </div>
+
+                <div class="checkout-field">
+                    <label for="customerPhone">Phone Number *</label>
+                    <input
+                        type="tel"
+                        id="customerPhone"
+                        name="customer_phone"
+                        placeholder="10-digit mobile number"
+                        pattern="[6-9][0-9]{9}"
+                        maxlength="10"
+                        autocomplete="tel"
+                        required
+                    >
+                </div>
+
+                <div class="checkout-field">
+                    <label for="customerEmail">Email Address</label>
+                    <input
+                        type="email"
+                        id="customerEmail"
+                        name="customer_email"
+                        placeholder="you@example.com"
+                        autocomplete="email"
+                    >
+                </div>
+
+                <div class="checkout-field">
+                    <label for="deliveryAddress">
+                        House / Street Address *
+                    </label>
+                    <textarea
+                        id="deliveryAddress"
+                        name="delivery_address"
+                        rows="3"
+                        placeholder="House name, street, and locality"
+                        autocomplete="street-address"
+                        required
+                    ></textarea>
+                </div>
+
+                <div class="checkout-field-row">
+
+                    <div class="checkout-field">
+                        <label for="customerDistrict">District *</label>
+                        <input
+                            type="text"
+                            id="customerDistrict"
+                            name="customer_district"
+                            placeholder="Enter district"
+                            required
+                        >
+                    </div>
+
+                    <div class="checkout-field">
+                        <label for="customerPincode">PIN Code *</label>
+                        <input
+                            type="text"
+                            id="customerPincode"
+                            name="customer_pincode"
+                            placeholder="6-digit PIN"
+                            pattern="[0-9]{6}"
+                            maxlength="6"
+                            inputmode="numeric"
+                            autocomplete="postal-code"
+                            required
+                        >
+                    </div>
+
+                </div>
+
+                <div class="checkout-field">
+                    <label for="orderNotes">
+                        Order Notes (Optional)
+                    </label>
+                    <textarea
+                        id="orderNotes"
+                        name="order_notes"
+                        rows="2"
+                        placeholder="Any special delivery instructions?"
+                    ></textarea>
+                </div>
+
+            </div>
+
+            <!-- Payment Method -->
+            <div class="checkout-card">
+                <h2>02. Payment Method</h2>
+
+                <p class="checkout-card-description">
+                    Choose how you would like to pay.
+                </p>
+
+                <label class="payment-option">
+                    <input
+                        type="radio"
+                        name="payment_method"
+                        value="COD"
+                        checked
+                    >
+
+                    <span class="payment-icon">💵</span>
+
+                    <span class="payment-text">
+                        <strong>Cash on Delivery</strong>
+                        <small>Pay when your order arrives.</small>
+                    </span>
+                </label>
+
+                <label class="payment-option">
+                    <input
+                        type="radio"
+                        name="payment_method"
+                        value="ONLINE"
+                    >
+
+                    <span class="payment-icon">📱</span>
+
+                    <span class="payment-text">
+                        <strong>Online Payment</strong>
+                        <small>
+                            Online payment integration will be added later.
+                        </small>
+                    </span>
+                </label>
+
+                <p class="payment-notice">
+                    Online payments are not active yet. For now, choose
+                    Cash on Delivery to continue.
+                </p>
+
+            </div>
+
+            <!-- Place Order -->
+            <button
+                type="submit"
+                class="place-order-button"
+            >
+                Place My Order →
+            </button>
+
+            <p class="checkout-secure-note">
+                Thank you for choosing traditional Kerala sweets.
+            </p>
+
+        </form>
+
+        <!-- Order Summary -->
+        <aside class="checkout-summary">
+
+            <h2>Your Sweet Selection</h2>
+
+            <div id="checkoutItems" class="checkout-items">
+                <p class="checkout-loading">
+                    Your order items will appear here.
+                </p>
+            </div>
+
+            <div class="checkout-summary-divider"></div>
+
+            <div class="summary-row">
+                <span>Total Items</span>
+                <span id="checkoutItemCount">0</span>
+            </div>
+
+            <div class="summary-row">
+                <span>Subtotal</span>
+                <span id="checkoutSubtotal">₹0.00</span>
+            </div>
+
+            <div class="summary-row">
+                <span>Delivery</span>
+                <span id="checkoutDelivery">To be confirmed</span>
+            </div>
+
+            <div class="summary-total">
+                <span>Order Total</span>
+                <strong id="checkoutTotal">₹0.00</strong>
+            </div>
+
+            <a href="/cart" class="checkout-back-link">
+                ← Return to Cart
+            </a>
+
+        </aside>
+
+    </div>
+
+</section>
+
+
+
+{% endblock %}

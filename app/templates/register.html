@@ -1,0 +1,175 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Account | SweetHaven</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <style>
+ .auth-container {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 30px 18px;
+    background:
+        radial-gradient(
+            circle at top right,
+            rgba(128, 42, 48, 0.10),
+            
+            transparent 35%
+        ),
+        #fffaf3;
+    box-sizing: border-box;
+}
+
+.auth-card {
+    width: 100%;
+    max-width: 430px;
+    padding: 38px 34px;
+    background: #ffffff;
+    border: 1px solid #eadbd0;
+    border-radius: 18px;
+    box-shadow: 0 15px 45px rgba(75, 28, 28, 0.10);
+    box-sizing: border-box;
+}
+
+.auth-card h1 {
+    margin: 0 0 10px;
+    color: #102c20;
+    text-align: center;
+    font-size: 32px;
+    font-weight: 700;
+}
+
+.auth-card > p {
+    color: #76645e;
+    text-align: center;
+    line-height: 1.6;
+}
+
+.auth-card form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 26px;
+}
+
+.auth-card label {
+    color:  #102c20;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.auth-card input {
+    width: 100%;
+    padding: 13px 14px;
+    border: 1px solid #e4d5cc;
+    border-radius: 9px;
+    background: #fffdf9;
+    color: #102c20;
+    font-size: 15px;
+    outline: none;
+    box-sizing: border-box;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.auth-card input:focus {
+    border-color:  #102c20;
+    box-shadow: 0 0 0 3px rgba(138, 52, 60, 0.10);
+}
+
+.auth-card button {
+    width: 100%;
+    margin-top: 12px;
+    padding: 14px;
+    border: none;
+    border-radius: 9px;
+    background:  #102c20;
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+}
+
+.auth-card button:hover {
+    background:  #102c20;
+    transform: translateY(-1px);
+}
+
+.auth-card a {
+    color:  #102c20;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.auth-card a:hover {
+    text-decoration: underline;
+}
+
+.auth-card .auth-error {
+    padding: 11px 13px;
+    border: 1px solid #efc4c4;
+    border-radius: 8px;
+    background: #fff0f0;
+    color: #102c20;
+    font-size: 14px;
+}
+
+.auth-card > a {
+    display: block;
+    margin-top: 20px;
+    text-align: center;
+    font-size: 14px;
+}
+
+@media (max-width: 480px) {
+    .auth-card {
+        padding: 28px 22px;
+    }
+
+    .auth-card h1 {
+        font-size: 27px;
+    }
+}
+
+    </style>
+</head>
+<body>
+    <main class="auth-container">
+        <section class="auth-card">
+            <h1>Join SweetHaven</h1>
+            <p>Create your customer account.</p>
+
+            {% if error %}
+                <p class="auth-error">{{ error }}</p>
+            {% endif %}
+
+            <form action="/register" method="post">
+                <label for="name">Full name</label>
+                <input type="text" id="name" name="name"
+                       placeholder="Enter your name" required>
+
+                <label for="email">Email address</label>
+                <input type="email" id="email" name="email"
+                       placeholder="Enter your email" required>
+
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password"
+                       placeholder="Create a password"
+                       minlength="8" required>
+
+                <button type="submit">Create Account</button>
+            </form>
+
+            <p>Already have an account?
+                <a href="/login">Login</a>
+            </p>
+
+            <a href="/">Back to Home</a>
+        </section>
+    </main>
+</body>
+</html>

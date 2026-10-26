@@ -1,0 +1,95 @@
+
+{% extends "base.html" %}
+
+{% block title %}My Cart | Sweet Haven{% endblock %}
+
+{% block content %}
+
+<section class="cart-page">
+
+    <!-- Cart Heading -->
+    <div class="cart-heading">
+        <span class="section-eyebrow">YOUR SWEET SELECTION</span>
+        <h1>My Shopping Cart</h1>
+        <p>Traditional Kerala sweets, selected with love.</p>
+    </div>
+
+    <!-- Cart Layout -->
+    <div class="cart-layout">
+
+        <!-- Cart Products -->
+        <div class="cart-items-section">
+
+            <div class="cart-items" id="cartItems"></div>
+
+            <!-- Empty Cart Message -->
+            <div class="cart-empty" id="cartEmpty" hidden>
+                <div class="empty-cart-icon">🛒</div>
+
+                <h2>Your cart is waiting for something sweet!</h2>
+
+                <p>
+                    Explore our traditional Kerala sweets
+                    and add your favourites.
+                </p>
+
+                <a href="/#featured" class="cart-shop-button">
+                    Explore Sweets
+                </a>
+            </div>
+
+        </div>
+
+        <!-- Order Summary -->
+        <aside class="cart-summary">
+
+            <h2>Order Summary</h2>
+
+            <div class="summary-row">
+                <span>Items</span>
+                <span id="summaryCount">0</span>
+            </div>
+
+            <div class="summary-row">
+                <span>Subtotal</span>
+                <span id="cartSubtotal">₹0.00</span>
+            </div>
+
+            <div class="summary-row">
+                <span>Delivery</span>
+                <span>Calculated at checkout</span>
+            </div>
+
+            <div class="summary-total">
+                <span>Total</span>
+                <strong id="cartTotal">₹0.00</strong>
+            </div>
+
+            <button
+                class="checkout-button"
+                id="checkoutButton"
+                type="button"
+                disabled
+            >
+                Proceed to Checkout →
+            </button>
+
+            <p class="cart-note">
+                Freshly prepared traditional Kerala sweets.
+            </p>
+
+        </aside>
+
+    </div>
+
+    <!-- Continue Shopping -->
+    <div class="continue-shopping-wrapper">
+        <a href="/#featured" class="continue-shopping">
+            <span class="continue-shopping-icon">←</span>
+            <span>Continue Shopping</span>
+        </a>
+    </div>
+
+</section>
+
+{% endblock %}

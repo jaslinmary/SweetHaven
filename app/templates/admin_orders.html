@@ -1,0 +1,587 @@
+{% extends "admin_base.html" %}
+
+{% block title %}Manage Orders | SweetHaven{% endblock %}
+
+{% block page_heading %}Order Management{% endblock %}
+
+{% block content %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Manage Orders | SweetHaven</title>
+
+    <!-- Bootstrap CSS -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+    <style>
+        
+/* ==============================
+   ORDER MANAGEMENT PAGE
+============================== */
+
+.page-title {
+    color: var(--green);
+    font-family: "Playfair Display", serif;
+    font-size: 32px;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+main > .mb-4 > .text-secondary {
+    color: var(--muted) !important;
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+/* ORDERS CARD */
+
+.orders-card {
+    padding: 28px;
+    background: var(--white);
+    border: 1px solid #eadbbd;
+    border-radius: 18px;
+    box-shadow: 0 8px 28px rgba(16, 44, 32, .07);
+}
+
+.orders-card h5 {
+    color: var(--green);
+    font-family: "Playfair Display", serif;
+    font-size: 22px;
+    font-weight: 700;
+}
+
+/* TOTAL ORDERS BADGE */
+
+.total-badge {
+    display: inline-block;
+    padding: 9px 17px;
+    background: var(--green);
+    color: var(--gold-light);
+    border: 1px solid rgba(217, 173, 85, .5);
+    border-radius: 30px;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+/* SEARCH AND FILTER */
+
+#orderSearch,
+#statusFilter {
+    min-height: 46px;
+    background-color: var(--white);
+    color: var(--text);
+    border: 1px solid #dfd0b3;
+    border-radius: 10px;
+    font-size: 13px;
+    box-shadow: none;
+}
+
+#orderSearch {
+    padding: 12px 16px;
+}
+
+#orderSearch::placeholder {
+    color: #9b917e;
+}
+
+#orderSearch:focus,
+#statusFilter:focus {
+    border-color: var(--gold);
+    box-shadow: 0 0 0 3px rgba(217, 173, 85, .17);
+}
+
+/* TABLE WRAPPER */
+
+.table-responsive {
+    border: 1px solid #eadbbd;
+    border-radius: 12px;
+    scrollbar-width: thin;
+    scrollbar-color: var(--gold) #f5eddd;
+}
+
+/* ORDERS TABLE */
+
+.orders-card .table {
+    min-width: 1150px;
+    margin-bottom: 0;
+    border-collapse: separate;
+    border-spacing: 0;
+    background: var(--white);
+}
+
+.orders-card .table thead th {
+    padding: 16px 14px;
+    background: var(--green);
+    color: var(--gold-light);
+    border: none;
+    border-bottom: 1px solid rgba(217, 173, 85, .35);
+    font-size: 12px;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.orders-card .table tbody td {
+    padding: 16px 14px;
+    color: var(--text);
+    border-bottom: 1px solid #eee4d0;
+    font-size: 13px;
+    line-height: 1.7;
+    vertical-align: middle;
+}
+
+.orders-card .table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.orders-card .table tbody tr {
+    transition: background .2s ease;
+}
+
+.orders-card .table tbody tr:hover > td {
+    background: #fbf5e8;
+}
+
+.orders-card .table tbody td strong {
+    color: var(--green);
+    font-weight: 700;
+}
+
+/* STATUS DROPDOWN */
+
+.status-select {
+    min-width: 125px;
+    padding: 8px 28px 8px 10px;
+    background-color: var(--white);
+    color: var(--text);
+    border: 1px solid #dfd0b3;
+    border-radius: 8px;
+    font-size: 12px;
+}
+
+.status-select:focus {
+    border-color: var(--gold);
+    box-shadow: 0 0 0 3px rgba(217, 173, 85, .17);
+}
+
+/* STATUS BADGES */
+
+.orders-card .badge {
+    padding: 7px 11px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .2px;
+}
+
+/* GOLD BUTTONS */
+
+.orders-card .btn-green,
+main > .btn-green {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    padding: 10px 17px;
+    background: linear-gradient(
+        135deg,
+        var(--gold-light),
+        var(--gold)
+    );
+    color: #30230e;
+    border: 1px solid #f6dfa7;
+    border-radius: 30px;
+    font-size: 12px;
+    font-weight: 700;
+    text-decoration: none;
+    box-shadow: 0 4px 12px rgba(217, 173, 85, .15);
+    transition: transform .25s ease, box-shadow .25s ease;
+}
+
+.orders-card .btn-green:hover,
+main > .btn-green:hover {
+    color: var(--green);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 18px rgba(217, 173, 85, .27);
+}
+
+.orders-card .btn-green:focus-visible,
+main > .btn-green:focus-visible {
+    outline: 3px solid var(--green-light);
+    outline-offset: 3px;
+}
+
+/* UPDATE BUTTON */
+
+.orders-card form .btn-green {
+    width: fit-content;
+    min-width: 90px;
+    padding: 8px 16px;
+}
+
+/* EMPTY STATE */
+
+.empty-state {
+    padding: 50px 20px;
+    color: var(--muted);
+    text-align: center;
+}
+
+.empty-state h4 {
+    margin-bottom: 10px;
+    color: var(--green);
+    font-family: "Playfair Display", serif;
+    font-size: 25px;
+    font-weight: 700;
+}
+
+.empty-state p {
+    margin-bottom: 0;
+    font-size: 14px;
+}
+
+/* BACK TO STORE */
+
+main > .btn-green {
+    margin-top: 28px !important;
+    margin-bottom: 20px;
+}
+
+/* RESPONSIVE DESIGN */
+
+@media (max-width: 768px) {
+    .page-title {
+        font-size: 27px;
+    }
+
+    .orders-card {
+        padding: 18px;
+        border-radius: 14px;
+    }
+
+    .orders-card h5 {
+        font-size: 20px;
+    }
+
+    .total-badge {
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 576px) {
+    .page-title {
+        font-size: 25px;
+    }
+
+    .orders-card {
+        padding: 14px;
+    }
+
+    #orderSearch,
+    #statusFilter {
+        min-height: 43px;
+        font-size: 12px;
+    }
+
+    .orders-card .table thead th,
+    .orders-card .table tbody td {
+        padding: 12px 10px;
+    }
+}
+
+    </style>
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <!-- <nav class="navbar">
+        <a class="navbar-brand" href="/">
+            🍬 SweetHaven
+        </a>
+    </nav> -->
+
+    <!-- Main Content -->
+    <main class="container-fluid container-lg py-5">
+
+        <!-- <div class="mb-4">
+            <h1 class="page-title">Order Management</h1>
+            <p class="text-secondary">
+                View and manage customer orders.
+            </p>
+        </div> -->
+
+        <div class="orders-card">
+
+            <!-- Table Heading -->
+            <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-4">
+                <h5 class="mb-0">Customer Orders</h5>
+
+                <span class="total-badge" id="totalOrders">
+                    Total: {{ orders|length }}
+                </span>
+            </div>
+
+            <!-- Search and Filter -->
+            <div class="row g-3 mb-4">
+
+                <div class="col-md-8">
+                    <input
+                        type="text"
+                        id="orderSearch"
+                        class="form-control"
+                        placeholder="Search by order ID, customer name, or phone..."
+                    >
+                </div>
+
+                <div class="col-md-4">
+                    <select id="statusFilter" class="form-select">
+                        <option value="">All Orders</option>
+                        <option value="Pending">Pending</option>
+                        <option value="Confirmed">Confirmed</option>
+                        <option value="Processing">Processing</option>
+                        <option value="Shipped">Shipped</option>
+                        <option value="Delivered">Delivered</option>
+                        <option value="Cancelled">Cancelled</option>
+                    </select>
+                </div>
+
+            </div>
+
+            {% if orders %}
+
+            <div class="table-responsive">
+                <table class="table table-hover">
+
+                    <thead>
+                        <tr>
+                            <th>Order ID</th>
+                            <th>Customer</th>
+                            <th>Phone</th>
+                            <th>Address</th>
+                            <th>Amount</th>
+                            <th>Payment</th>
+                            <th>Status</th>
+                            <th>Date</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                        {% for order in orders %}
+
+                        <tr>
+                            <!-- Order ID -->
+                            <td>
+                                <strong>#{{ order.id }}</strong>
+                            </td>
+
+                            <!-- Customer -->
+                            <td>
+                                {{ order.customer_name }}
+                            </td>
+
+                            <!-- Phone -->
+                            <td>
+                                {{ order.customer_phone }}
+                            </td>
+
+                            <!-- Delivery Address -->
+                            <td>
+                                {{ order.delivery_address }},
+                                {{ order.customer_district }}
+                                - {{ order.customer_pincode }}
+                            </td>
+
+                            <!-- Total Amount -->
+                            <td>
+                                <strong>
+                                    ₹{{ "%.2f"|format(order.total_amount) }}
+                                </strong>
+                            </td>
+
+                            <!-- Payment Method -->
+                            <td>
+                                {{ order.payment_method }}
+                            </td>
+
+                            <!-- Update Order Status -->
+                            
+<td>
+    <!-- Colored Order Status Badge -->
+    <div class="mb-2">
+        {% if order.order_status == "Pending" %}
+            <span class="badge rounded-pill bg-warning text-dark">
+                Pending
+            </span>
+        {% elif order.order_status == "Confirmed" %}
+            <span class="badge rounded-pill bg-primary">
+                Confirmed
+            </span>
+        {% elif order.order_status == "Processing" %}
+            <span class="badge rounded-pill bg-info text-dark">
+                Processing
+            </span>
+        {% elif order.order_status == "Shipped" %}
+            <span class="badge rounded-pill bg-secondary">
+                Shipped
+            </span>
+        {% elif order.order_status == "Delivered" %}
+            <span class="badge rounded-pill bg-success">
+                Delivered
+            </span>
+        {% elif order.order_status == "Cancelled" %}
+            <span class="badge rounded-pill bg-danger">
+                Cancelled
+            </span>
+        {% else %}
+            <span class="badge rounded-pill bg-light text-dark">
+                {{ order.order_status }}
+            </span>
+        {% endif %}
+    </div>
+
+    <!-- Update Order Status Form -->
+    <form
+        action="/admin/orders/{{ order.id }}/status"
+        method="post"
+        class="d-flex flex-column gap-2"
+    >
+        <select
+            name="status"
+            class="form-select form-select-sm status-select"
+            required
+        >
+            <option value="Pending"
+                {% if order.order_status == "Pending" %}selected{% endif %}>
+                Pending
+            </option>
+
+            <option value="Confirmed"
+                {% if order.order_status == "Confirmed" %}selected{% endif %}>
+                Confirmed
+            </option>
+
+            <option value="Processing"
+                {% if order.order_status == "Processing" %}selected{% endif %}>
+                Processing
+            </option>
+
+            <option value="Shipped"
+                {% if order.order_status == "Shipped" %}selected{% endif %}>
+                Shipped
+            </option>
+
+            <option value="Delivered"
+                {% if order.order_status == "Delivered" %}selected{% endif %}>
+                Delivered
+            </option>
+
+            <option value="Cancelled"
+                {% if order.order_status == "Cancelled" %}selected{% endif %}>
+                Cancelled
+            </option>
+        </select>
+
+        <button type="submit" class="btn btn-green btn-sm">
+            Update
+        </button>
+    </form>
+</td>
+
+                            <!-- Order Date -->
+                            <td>
+                                {% if order.created_at %}
+                                    {{ order.created_at.strftime("%d-%m-%Y") }}
+                                {% else %}
+                                    —
+                                {% endif %}
+                            </td>
+
+                            <!-- View Order Details -->
+                            <td>
+                                <a
+                                    href="/admin/orders/{{ order.id }}"
+                                    class="btn btn-green btn-sm"
+                                >
+                                    View Details
+                                </a>
+                            </td>
+
+                        </tr>
+
+                        {% endfor %}
+
+                    </tbody>
+                </table>
+            </div>
+
+            {% else %}
+
+            <div class="empty-state">
+                <h4>No orders yet</h4>
+                <p>Customer orders will appear here.</p>
+            </div>
+
+            {% endif %}
+
+        </div>
+
+        <a href="/" class="btn btn-green mt-4">
+            ← Back to Store
+        </a>
+
+    </main>
+
+    <!-- Search and Filter JavaScript -->
+    <script>
+        const orderSearch = document.getElementById("orderSearch");
+        const statusFilter = document.getElementById("statusFilter");
+        const orderRows = document.querySelectorAll("tbody tr");
+        const totalOrders = document.getElementById("totalOrders");
+
+        function filterOrders() {
+            const searchText = orderSearch.value.toLowerCase().trim();
+            const selectedStatus = statusFilter.value;
+
+            let visibleCount = 0;
+
+            orderRows.forEach(function(row) {
+                const orderId = row.cells[0].textContent.toLowerCase();
+                const customerName = row.cells[1].textContent.toLowerCase();
+                const phone = row.cells[2].textContent.toLowerCase();
+
+                const statusDropdown = row.querySelector(
+                    'select[name="status"]'
+                );
+
+                const currentStatus = statusDropdown.value;
+
+                const matchesSearch =
+                    orderId.includes(searchText) ||
+                    customerName.includes(searchText) ||
+                    phone.includes(searchText);
+
+                const matchesStatus =
+                    selectedStatus === "" ||
+                    currentStatus === selectedStatus;
+
+                if (matchesSearch && matchesStatus) {
+                    row.style.display = "";
+                    visibleCount++;
+                } else {
+                    row.style.display = "none";
+                }
+            });
+
+            totalOrders.textContent =
+                "Showing: " + visibleCount + " / " + orderRows.length;
+        }
+
+        orderSearch.addEventListener("input", filterOrders);
+        statusFilter.addEventListener("change", filterOrders);
+    </script>
+
+{% endblock %}

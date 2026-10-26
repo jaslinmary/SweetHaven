@@ -1,0 +1,141 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{% block title %}Sweet Haven | Traditional Kerala Sweets{% endblock %}</title>
+
+    <meta name="description"
+          content="Discover authentic Kerala sweets, traditional recipes and handcrafted sweet treats at Sweet Haven.">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap"
+          rel="stylesheet">
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', path='css/style.css') }}">
+</head>
+
+<body>
+
+<header class="site-header">
+
+    <!-- Brand -->
+    <a href="/" class="brand">
+        <span class="brand-emblem">❋</span>
+
+        <span class="brand-text">
+            <span class="brand-name">Sweet Haven</span>
+            <span class="brand-tagline">TRADITIONAL KERALA SWEETS</span>
+        </span>
+    </a>
+
+    <!-- Mobile Navigation Toggle -->
+    <button class="menu-toggle"
+            id="menuToggle"
+            aria-label="Toggle navigation"
+            aria-expanded="false">
+        ☰
+    </button>
+
+    <!-- Main Navigation -->
+    <nav class="navigation" id="navigation">
+        <a href="/#home" class="nav-link">Home</a>
+        <a href="/#categories" class="nav-link">Our Sweets</a>
+        <a href="/#featured" class="nav-link">Featured</a>
+        <a href="/#story" class="nav-link">About Us</a>
+        <a href="/#footer" class="nav-link">Contact</a>
+        <a href="/track-order" class="nav-link">Track My Order</a>
+    </nav>
+
+    <!-- Header Actions -->
+    <div class="header-actions">
+
+        <!-- Search -->
+        <button class="icon-button"
+                id="searchToggle"
+                aria-label="Search">
+            ⌕
+        </button>
+
+        <!-- Login / Register / Logout -->
+        {% if request.session.get("user_id") %}
+
+            {% if request.session.get("role") == "admin" %}
+                <a href="/admin/dashboard" class="nav-link">
+                    Admin
+                </a>
+            {% endif %}
+
+            <a href="/logout" class="gold-button">
+                Logout
+            </a>
+
+        {% else %}
+
+            <a href="/login" class="nav-link">
+                Login
+            </a>
+
+            <a href="/register" class="gold-button">
+                Register
+            </a>
+
+        {% endif %}
+
+        <!-- Shopping Cart -->
+        <a href="/cart"
+           class="icon-button cart-button"
+           id="cartButton"
+           aria-label="Shopping cart">
+            🛒
+            <span class="cart-count" id="cartCount">0</span>
+        </a>
+
+    </div>
+
+</header>
+
+<!-- Search Panel -->
+<form class="search-panel" id="searchPanel" role="search">
+    <input id="searchInput"
+           type="search"
+           placeholder="Search Kerala sweets..."
+           aria-label="Search Kerala sweets">
+
+    <button type="submit" class="gold-button">
+        Search
+    </button>
+</form>
+
+<!-- Page Content -->
+<main>
+    {% block content %}{% endblock %}
+</main>
+
+<!-- Footer -->
+<footer class="site-footer" id="footer">
+
+    <div class="footer-brand">Sweet Haven</div>
+
+    <p>From Kerala's heart, made with love.</p>
+
+    <p class="footer-note">
+        Traditional flavours. Timeless memories.
+    </p>
+
+    <div class="footer-bottom">
+        © 2026 Sweet Haven. All rights reserved.
+    </div>
+
+</footer>
+
+<!-- JavaScript -->
+<script src="{{ url_for('static', path='js/script.js') }}"></script>
+
+</body>
+</html>
